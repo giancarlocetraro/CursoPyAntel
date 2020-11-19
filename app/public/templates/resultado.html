@@ -1,0 +1,21 @@
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <h1>Pregunta: {{pregunta.text}}</h1>
+    <br>
+    <div style="text-align: center;">
+        <h2><span style="font-weight: bold; background-color: rgb(147, 206, 222);">
+            RESPUESTA: {{ resultado }}
+        </span></h2>
+        <br>
+        <div style="text-align:center;"></div>
+        <br>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <h3><a href="{{ url_for('public.mostrarcategorias') }}">Volver a Categorias</a></h3>
+    </div>
+    {% endblock %}
+</body>
