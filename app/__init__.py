@@ -3,14 +3,14 @@ from flask_login import LoginManager, current_user, login_user, login_required, 
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_principal import Principal
-#from flask_migrate import Migrate
+from flask_migrate import Migrate
 import os
 
 login_manager = LoginManager()
 db = SQLAlchemy()
 admin = Admin()
 principal = Principal()
-#migrate = Migrate()
+migrate = Migrate()
 
 
 def create_app():
@@ -34,7 +34,7 @@ def create_app():
     principal.init_app(app)
 
     # Se inicializa el objeto migrate
-    #migrate.init_app(app, db)
+    migrate.init_app(app, db)
 
     # Registro de los Blueprints
     from .errors import errors_bp
