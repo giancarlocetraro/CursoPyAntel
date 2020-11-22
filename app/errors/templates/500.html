@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
-{% block content %}
-    Ooops!! Parece que ha habido un error :(
-    {% if msj %}
-        Error:  {{ msj }}
-    {% endif %}
+{% block app_content %}
+<div style="text-align: center;" class="container">
+    <h1>
+        <span style="background-color:lightblue;">Ooops!! Parece que ha habido un error :(</span>
+        {% if msj %}
+            Error:  {{ msj }}
+        {% endif %}
+    </h1>
+</div>
 {% endblock %}

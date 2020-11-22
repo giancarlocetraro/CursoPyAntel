@@ -30,3 +30,12 @@ class Respuesta(db.Model):
 
     def __repr__(self):
         return f'<Respuesta: {self.text}>'
+
+
+class Posiciones(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    time = db.Column(db.Interval, nullable=False)
+
+    def __repr__(self):
+        return '<Usuario: {} - Time: {}>'.format(self.name, self.time)

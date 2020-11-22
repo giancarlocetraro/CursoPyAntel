@@ -1,26 +1,31 @@
-<html>
-    <head>
-        <title>Trivia</title>
-    </head>
-    <body>
-        <div>
-            <a href="{{ url_for('public.index') }}">Inicio</a>
-            {% if current_user.is_anonymous %}
-                <a href="{{ url_for('auth.login') }}">Iniciar sesión</a>
-            {% else %}
-                <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a> Usuario {{ current_user.name }}
-            {% endif %}
-        </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
+{% extends 'bootstrap/base.html' %}
+{% block title %}Trivia{% endblock %}
+{% block content %}
+    <div>
+        <table border="0">
+            <tr style="width:100%">
+                <td>
+                    <h3><a href="{{ url_for('public.index') }}">Inicio</a></h3>
+                </td>
+                <td style="width:10%">
+                    {% if current_user.is_anonymous %}
+                        <h3><a href="{{ url_for('auth.login') }}">Iniciar sesión</a></h3>
+                    {% else %}
+                        <h3><a href="{{ url_for('auth.logout') }}">Cerrar sesión</a> Usuario: {{ current_user.name }}</h3>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
           <ul>
               {% for message in messages %}
               <li>{{ message }}</li>
               {% endfor %}
           </ul>
-          {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+      {% endif %}
+    {% endwith %}
+{% block app_content %}{% endblock %}
+{% endblock %}

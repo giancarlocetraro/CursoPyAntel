@@ -1,9 +1,10 @@
 # app/public/routes.py
 
-from app import login_required
+from app import login_required, db
 from flask import render_template, session
+from flask_login import current_user
 from . import public_bp
-from .models import Categoria, Pregunta, Respuesta
+from .models import Categoria, Pregunta, Respuesta, Posiciones
 import random
 from datetime import datetime
 
@@ -31,10 +32,11 @@ def mostrarcategorias():
 @login_required
 def mostrarpregunta(id_categoria):
     preguntas = Pregunta.query.filter_by(categoria_id=id_categoria).all()
+    categ = Categoria.query.get(id_categoria)
     # elegir pregunta aleatoria pero de la categoria adecuada
     pregunta = random.choice(preguntas)
     respuestas = pregunta.respuestas
-    categ = Categoria.query.get(id_categoria)
+
     return render_template('preguntas.html', categoria=categ, pregunta=pregunta, respuestas=respuestas)
 
 
@@ -58,9 +60,18 @@ def mostrarresultado(id_categoria, id_pregunta, id_respuesta):
 
         if fin:
             session['total_time'] = datetime.now() - session['init_time']
+            pos = Posiciones(name=current_user.name, time=session['total_time'])
+            db.session.add(pos)
+            db.session.commit()
+            print(pos)
+            #print(type(session['total_time']))
             tiempo = str(session['total_time'])
+            #sec = session['total_time'].total_seconds()
+            #print(sec)
+            #tiempo = '%H:%M:%S'.format(sec // 3600, sec % 3600 // 60, sec % 60)
+            top_cinco = Posiciones.query.order_by(Posiciones.time).limit(5)
             session.clear()
-            return render_template('fin.html', tiempo=tiempo)
+            return render_template('fin.html', tiempo=tiempo, tabla=top_cinco)
     else:
         result = 'Incorrecta'
 

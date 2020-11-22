@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% block content %}
+{% block app_content %}
+<div style="text-align: center;" class="container">
     <h2>Home de la Trivia</h2>
-    <h3><a href="{{ url_for('public.mostrarcategorias') }}">Comenzar a jugar</a></h3>
+    <h3><a style="background-color:lightblue;" href="{{ url_for('public.mostrarcategorias') }}">Comenzar a jugar</a></h3>
+</div>
 {% endblock %}

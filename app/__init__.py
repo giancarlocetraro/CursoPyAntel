@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_principal import Principal
 from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap
 import os
 
 login_manager = LoginManager()
@@ -28,6 +29,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    bootstrap = Bootstrap(app)
     login_manager.init_app(app)
     db.init_app(app)
     admin.init_app(app)
